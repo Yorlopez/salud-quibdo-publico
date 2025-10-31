@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitar Consulta - Salud Quibdó</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content" style="justify-content: space-between;">
+                <!-- Logo -->
+                <a href="index.html" style="text-decoration: none; color: inherit;">
+                    <div class="logo">
+                        <div class="logo-icon">
+                            <svg class="heart-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/>
+                            </svg>
+                        </div>
+                        <h1>Salud Quibdó</h1>
+                    </div>
+                </a>
+                <a href="index.html" class="btn-ghost">Volver al inicio</a>
+            </div>
+        </div>
+    </header>
+
+    <main style="background-color: var(--gray-50); padding: var(--space-16) 0;">
+        <div class="container">
+            <div class="modal-content" style="margin: auto; display: block; max-width: 600px; padding: var(--space-8);">
+                <div class="section-header" style="margin-bottom: var(--space-8); text-align: center;">
+                    <h2>Solicitar Consulta Virtual</h2>
+                    <p style="font-size: var(--font-size-base);">Completa el formulario y uno de nuestros médicos voluntarios se pondrá en contacto contigo. Por favor, asegúrate de haber iniciado sesión.</p>
+                </div>
+                <form id="consulta-form">
+                    <div class="form-group">
+                        <label for="motivo">Motivo de la consulta:</label>
+                        <input type="text" id="motivo" name="motivo" placeholder="Ej: Dolor de cabeza, control prenatal..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sintomas">Síntomas:</label>
+                        <textarea id="sintomas" name="sintomas" placeholder="Describe tus síntomas con el mayor detalle posible." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha">Fecha preferida:</label>
+                        <input type="date" id="fecha" name="fecha" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="hora">Hora preferida:</label>
+                        <input type="time" id="hora" name="hora" required>
+                    </div>
+                    <button type="submit" class="btn-primary" style="width: 100%; padding: 0.75rem; font-size: 1rem; margin-top: 1rem;">Enviar Solicitud</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer" style="padding: var(--space-8) 0;">
+        <div class="container">
+            <div class="footer-bottom" style="border-top: none; padding-top: 0;">
+                <div class="footer-bottom-content">
+                    <div class="copyright">
+                        © 2024 Salud Quibdó. Todos los derechos reservados.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="supabase-script.js"></script>
+    <script type="module" src="consulta.js"></script>
+    <script type="module">
+        document.addEventListener('DOMContentLoaded', async () => {
+            const { data: { user } } = await window.supabaseClient.auth.getUser();
+            if (!user) {
+                alert('Por favor, inicia sesión para poder solicitar una consulta. Serás redirigido a la página principal.');
+                window.location.href = 'index.html'; 
+            }
+        });
+    </script>
+</body>
+</html>

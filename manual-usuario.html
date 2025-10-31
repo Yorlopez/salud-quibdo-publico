@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22%232563eb%22><path d=%22M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z%22/></svg>">
+    <title>Manual de Usuario - Salud Quibdó</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="manual.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <svg class="heart-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/>
+                        </svg>
+                    </div>
+                    <h1>Salud Quibdó</h1>
+                </div>
+                <div class="header-actions">
+                    <a href="index.html" class="btn-primary">Volver al Inicio</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="manual-container">
+        <aside class="manual-sidebar">
+            <nav>
+                <h3>Índice</h3>
+                <ul>
+                    <li><a href="#introduccion">1. Introducción</a></li>
+                    <li><a href="#pacientes">2. Guía para Pacientes</a>
+                        <ul>
+                            <li><a href="#paciente-registro">2.1. Crear una cuenta</a></li>
+                            <li><a href="#paciente-login">2.2. Iniciar sesión</a></li>
+                            <li><a href="#paciente-consulta">2.3. Solicitar una consulta</a></li>
+                            <li><a href="#paciente-chatbot">2.4. Usar el Chatbot de Salud</a></li>
+                            <li><a href="#paciente-panel">2.5. Acceder al Panel de Paciente</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#voluntarios">3. Guía para Médicos Voluntarios</a>
+                        <ul>
+                            <li><a href="#voluntario-registro">3.1. Registrarse como voluntario</a></li>
+                            <li><a href="#voluntario-aprobacion">3.2. Proceso de aprobación</a></li>
+                            <li><a href="#voluntario-panel">3.3. Acceder al Panel de Médico</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#admin">4. Guía para Administradores</a>
+                        <ul>
+                            <li><a href="#admin-acceso">4.1. Acceso al panel</a></li>
+                            <li><a href="#admin-aprobacion">4.2. Aprobar o rechazar voluntarios</a></li>
+                            <li><a href="#admin-stats">4.3. Ver estadísticas</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#faq">5. Preguntas Frecuentes</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <article class="manual-content">
+            <h1 class="main-title">Manual de Usuario de Salud Quibdó</h1>
+
+            <section id="introduccion">
+                <h2>1. Introducción</h2>
+                <p>Bienvenido a Salud Quibdó, una plataforma de telemedicina diseñada para conectar a la comunidad de Quibdó con médicos voluntarios. Este manual te guiará a través de las funcionalidades clave del sitio, ya seas un paciente buscando atención, un médico queriendo ayudar, o un administrador gestionando la plataforma.</p>
+            </section>
+
+            <section id="pacientes">
+                <h2>2. Guía para Pacientes</h2>
+                <p>Como paciente, puedes registrarte, solicitar consultas, obtener orientación a través de nuestro chatbot y acceder a tu panel personal.</p>
+
+                <h3 id="paciente-registro">2.1. Crear una cuenta</h3>
+                <ol>
+                    <li>En la página principal, haz clic en el botón <strong>"Registrarse"</strong> en la esquina superior derecha.</li>
+                    <li>Se abrirá una ventana modal. Asegúrate de que la pestaña <strong>"Registrarse"</strong> esté seleccionada.</li>
+                    <li>Ingresa tu correo electrónico y una contraseña segura (mínimo 6 caracteres).</li>
+                    <li>Haz clic en <strong>"Crear Cuenta"</strong>.</li>
+                    <li>Recibirás un correo para confirmar tu cuenta. Haz clic en el enlace de confirmación para activarla.</li>
+                </ol>
+
+                <h3 id="paciente-login">2.2. Iniciar sesión</h3>
+                <ol>
+                    <li>Haz clic en el botón <strong>"Iniciar Sesión"</strong> en la esquina superior derecha.</li>
+                    <li>En la ventana modal, introduce tu correo y contraseña.</li>
+                    <li>Haz clic en <strong>"Iniciar Sesión"</strong>. Una vez dentro, verás tu nombre de usuario y un botón para ir a "Mi Panel".</li>
+                </ol>
+
+                <h3 id="paciente-consulta">2.3. Solicitar una consulta</h3>
+                <ol>
+                    <li>Una vez hayas iniciado sesión, el botón principal cambiará a <strong>"Agendar Consulta"</strong>. Haz clic en él. También puedes usar el botón <strong>"Solicitar Consulta"</strong> en la sección principal.</li>
+                    <li>Serás redirigido a la página de solicitud de consulta.</li>
+                    <li>Rellena el formulario con el motivo de tu consulta, tus síntomas y la fecha y hora de tu preferencia.</li>
+                    <li>Haz clic en <strong>"Enviar Solicitud"</strong>.</li>
+                    <li>Recibirás una confirmación en pantalla y un médico se pondrá en contacto contigo por correo electrónico para coordinar la consulta virtual.</li>
+                </ol>
+
+                <h3 id="paciente-chatbot">2.4. Usar el Chatbot de Salud</h3>
+                <ol>
+                    <li>Haz clic en el botón flotante con el ícono de chat en la esquina inferior derecha de la pantalla.</li>
+                    <li>Se abrirá una ventana de chat. Puedes escribir tus preguntas sobre síntomas leves o dudas de salud.</li>
+                    <li>El asistente virtual te dará orientación básica y te indicará si es necesario que solicites una consulta con un médico.</li>
+                    <li><strong>Importante:</strong> El chatbot es para orientación general y no reemplaza una consulta médica. Para emergencias, llama al 123.</li>
+                </ol>
+
+                <h3 id="paciente-panel">2.5. Acceder al Panel de Paciente</h3>
+                <ol>
+                    <li>Una vez iniciada la sesión, haz clic en el botón <strong>"Mi Panel"</strong> en la cabecera.</li>
+                    <li>Serás llevado a <code>dashboard-paciente.html</code>, donde podrás ver el historial de tus consultas, tus datos de perfil y otros recursos.</li>
+                </ol>
+            </section>
+
+            <section id="voluntarios">
+                <h2>3. Guía para Médicos Voluntarios</h2>
+                <p>Si eres un profesional de la salud, puedes unirte a nuestra causa para brindar atención a la comunidad.</p>
+
+                <h3 id="voluntario-registro">3.1. Registrarse como voluntario</h3>
+                <ol>
+                    <li>En la página principal, haz clic en el botón <strong>"Ser Voluntario"</strong>.</li>
+                    <li>Se abrirá una ventana modal específica para el registro de médicos.</li>
+                    <li>Completa todos los campos: nombre completo, correo, contraseña, número de tarjeta profesional y tu especialidad.</li>
+                    <li>Acepta los términos y haz clic en <strong>"Enviar Solicitud de Registro"</strong>.</li>
+                </ol>
+
+                <h3 id="voluntario-aprobacion">3.2. Proceso de aprobación</h3>
+                <ul>
+                    <li>Una vez enviada tu solicitud, nuestro equipo de administración la revisará.</li>
+                    <li>Verificaremos la información proporcionada, especialmente tu licencia profesional.</li>
+                    <li>Recibirás un correo electrónico una vez que tu cuenta haya sido aprobada y activada. Este proceso puede tardar unos días.</li>
+                </ul>
+
+                <h3 id="voluntario-panel">3.3. Acceder al Panel de Médico</h3>
+                <ol>
+                    <li>Una vez tu cuenta sea aprobada, podrás <strong>iniciar sesión</strong> como cualquier otro usuario.</li>
+                    <li>Al iniciar sesión, el botón "Mi Panel" te redirigirá a <code>dashboard-medico.html</code>.</li>
+                    <li>En tu panel, podrás ver las consultas asignadas, gestionar tu disponibilidad y comunicarte con los pacientes.</li>
+                </ol>
+            </section>
+
+            <section id="admin">
+                <h2>4. Guía para Administradores</h2>
+                <p>Los administradores tienen acceso a un panel especial para gestionar la plataforma.</p>
+
+                <h3 id="admin-acceso">4.1. Acceso al panel</h3>
+                <ol>
+                    <li>Inicia sesión con una cuenta que tenga permisos de administrador.</li>
+                    <li>El botón en la cabecera cambiará a <strong>"Panel Admin"</strong>. Haz clic en él.</li>
+                    <li>Serás redirigido a <code>admin.html</code>. Si no tienes permisos, serás devuelto a la página de inicio.</li>
+                </ol>
+
+                <h3 id="admin-aprobacion">4.2. Aprobar o rechazar voluntarios</h3>
+                <ol>
+                    <li>En el panel de administración, verás una tabla con los "Voluntarios Pendientes de Aprobación".</li>
+                    <li>Para cada solicitud, puedes revisar el nombre, correo, especialidad y licencia.</li>
+                    <li>Haz clic en <strong>"Aprobar"</strong> para activar la cuenta del médico. El médico recibirá una notificación y la solicitud desaparecerá de la lista.</li>
+                    <li>Haz clic en <strong>"Rechazar"</strong> para eliminar la solicitud. Esta acción es irreversible.</li>
+                </ol>
+
+                <h3 id="admin-stats">4.3. Ver estadísticas</h3>
+                <p>En la parte superior del panel de administración, encontrarás estadísticas clave de la plataforma, como el número total de usuarios, médicos, pacientes y consultas. Estos datos se actualizan en tiempo real.</p>
+            </section>
+
+            <section id="faq">
+                <h2>5. Preguntas Frecuentes</h2>
+                <dl>
+                    <dt>¿Tiene algún costo solicitar una consulta?</dt>
+                    <dd>No, todos los servicios de consulta a través de Salud Quibdó son gratuitos, gracias al trabajo de nuestros médicos voluntarios.</dd>
+
+                    <dt>¿Qué pasa si olvido mi contraseña?</dt>
+                    <dd>En la ventana de "Iniciar Sesión", habrá una opción para restablecer tu contraseña. Recibirás un correo con instrucciones para crear una nueva.</dd>
+
+                    <dt>¿Mis datos están seguros?</dt>
+                    <dd>Sí. Cumplimos con la Ley 1581 de 2012 sobre protección de datos personales. Toda tu información médica y personal se almacena de forma segura y confidencial.</dd>
+
+                    <dt>¿Puedo usar la plataforma desde mi celular?</dt>
+                    <dd>Sí, la plataforma está diseñada para funcionar correctamente en computadores, tabletas y teléfonos móviles.</dd>
+                </dl>
+            </section>
+
+        </article>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+             <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <div class="copyright">
+                        © 2024 Salud Quibdó. Todos los derechos reservados.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

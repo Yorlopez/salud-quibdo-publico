@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administrador - Salud Quibdó</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content" style="justify-content: space-between;">
+                <a href="index.html" style="text-decoration: none; color: inherit;">
+                    <div class="logo">
+                        <div class="logo-icon">
+                            <svg class="heart-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/>
+                            </svg>
+                        </div>
+                        <h1>Panel de Administrador</h1>
+                    </div>
+                </a>
+                <a href="index.html" class="btn-ghost">Volver al inicio</a>
+            </div>
+        </div>
+    </header>
+
+    <main style="background-color: var(--gray-50); padding: var(--space-12) 0; min-height: 80vh;">
+        <div class="container">
+            <div class="section-header" style="text-align: left; margin-bottom: var(--space-8);">
+                <h2>Estadísticas de la Plataforma</h2>
+                <p style="font-size: var(--font-size-lg); text-align: left; max-width: none;">Una vista general del rendimiento y uso de Salud Quibdó.</p>
+            </div>
+
+            <!-- Contenedor de Estadísticas -->
+            <div id="stats-container" class="stats-grid" style="margin-bottom: var(--space-16);">
+                <!-- Las tarjetas de estadísticas se cargarán aquí -->
+                <div class="skeleton-card" style="height: 120px;"></div>
+                <div class="skeleton-card" style="height: 120px;"></div>
+                <div class="skeleton-card" style="height: 120px;"></div>
+                <div class="skeleton-card" style="height: 120px;"></div>
+            </div>
+
+            <div class="section-header" style="text-align: left; margin-bottom: var(--space-8);">
+                <h2>Médicos Voluntarios Pendientes</h2>
+                <p style="font-size: var(--font-size-lg); text-align: left; max-width: none;">Nuevas solicitudes de médicos para unirse a la plataforma.</p>
+            </div>
+
+            <!-- Contenedor para la tabla de administración -->
+            <div id="admin-container" class="admin-table-container">
+                <p>Cargando...</p>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="supabase-script.js"></script>
+    <script type="module" src="admin.ts"></script>
+</body>
+</html>

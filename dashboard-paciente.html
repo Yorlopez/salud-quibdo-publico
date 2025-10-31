@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22%232563eb%22><path d=%22M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z%22/></svg>">
+    <title>Panel del Paciente - Salud Quibdó</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content" style="justify-content: space-between;">
+                <a href="index.html" style="text-decoration: none; color: inherit;">
+                    <div class="logo">
+                        <div class="logo-icon">
+                            <svg class="heart-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/>
+                            </svg>
+                        </div>
+                        <h1>Salud Quibdó</h1>
+                    </div>
+                </a>
+                <a href="index.html" class="btn-ghost">Volver al inicio</a>
+            </div>
+        </div>
+    </header>
+
+    <main style="background-color: var(--gray-50); padding: var(--space-12) 0; min-height: 80vh;">
+        <div class="container">
+            <!-- Perfil del Paciente -->
+            <div class="patient-profile-header">
+                <div class="profile-avatar-container">
+                    <img src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e5e7eb'%3e%3cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/%3e%3ccircle cx='12' cy='7' r='4'/%3e%3c/svg%3e" alt="Foto de perfil" id="patient-avatar" class="profile-avatar">
+                    <label for="avatar-upload" class="edit-avatar-button" title="Cambiar foto de perfil">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                    </label>
+                    <input type="file" id="avatar-upload" accept="image/png, image/jpeg" style="display: none;">
+                </div>
+                <div class="profile-info">
+                    <h2 id="patient-name">Cargando...</h2>
+                    <p id="patient-email" class="text-muted">Cargando email...</p>
+                </div>
+                <div class="profile-actions">
+                    <a href="index2.html" class="btn-primary">Agendar Nueva Consulta</a>
+                    <!-- Este botón se hará visible con JavaScript -->
+                    <button id="view-my-history-btn" class="btn-secondary" style="display: none;">Ver mi Historia Clínica</button>
+                </div>
+            </div>
+
+            <div class="section-header" style="margin-top: var(--space-12); margin-bottom: var(--space-8); text-align: left;">
+                <h2>Mis Consultas</h2>
+                <p style="font-size: var(--font-size-lg); text-align: left; max-width: none;">Aquí puedes ver el estado de tus solicitudes de consulta.</p>
+            </div>
+            <div id="consultas-container" class="dashboard-grid">
+                <!-- Las consultas se cargarán aquí dinámicamente -->
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+            </div>
+
+            <!-- NUEVA SECCIÓN: Monitoreo de Salud -->
+            <div id="health-monitoring-section" style="margin-top: var(--space-16);">
+                <div class="section-header" style="margin-bottom: var(--space-8); text-align: left;">
+                    <h2>Mi Monitoreo de Salud</h2>
+                    <p style="font-size: var(--font-size-lg); text-align: left; max-width: none;">Registra y lleva un control de tus signos vitales.</p>
+                </div>
+
+                <div class="monitoring-grid">
+                    <!-- Formulario para añadir métrica -->
+                    <div class="metric-form-container">
+                        <h3>Añadir Nuevo Registro</h3>
+                        <form id="metric-form">
+                            <div class="form-group">
+                                <label for="metric-type">Tipo de Métrica</label>
+                                <select id="metric-type" name="metric-type" required>
+                                    <option value="" disabled selected>Selecciona una opción</option>
+                                    <option value="presion_arterial">Presión Arterial</option>
+                                    <option value="glucosa">Glucosa en Sangre (mg/dL)</option>
+                                    <option value="peso">Peso (kg)</option>
+                                    <option value="temperatura">Temperatura (°C)</option>
+                                </select>
+                            </div>
+                            <div id="metric-value-fields">
+                                <!-- Campos dinámicos según el tipo de métrica -->
+                            </div>
+                            <button type="submit" class="btn-primary" style="width: 100%;">Guardar Registro</button>
+                        </form>
+                    </div>
+                    <!-- Contenedor para el historial de métricas -->
+                    <div class="metric-history-container">
+                        <h3>Historial de Registros</h3>
+                        <div id="metrics-history-list">
+                            <!-- El historial se cargará aquí -->
+                            <p>Cargando historial...</p>
+                        </div>
+                    </div>
+                    <!-- Aquí va el contenedor para el gráfico -->
+                    <div class="metric-chart-container" style="grid-column: 1 / -1; margin-top: 2rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 1rem;">
+                            <h3>Evolución de Métricas</h3>
+                            <div class="form-group" style="margin-bottom: 0; display: flex; align-items: center;">
+                                <label for="chart-metric-select" style="margin-right: 0.5rem; font-size: 0.9rem; white-space: nowrap;">Ver Métrica:</label>
+                                <select id="chart-metric-select" name="chart-metric-select">
+                                    <option value="peso">Peso (kg)</option>
+                                    <option value="glucosa">Glucosa (mg/dL)</option>
+                                    <option value="temperatura">Temperatura (°C)</option>
+                                    <option value="presion_arterial">Presión Arterial</option>
+                                </select>
+                            </div>
+                        </div>
+                        <canvas id="health-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Aquí va la librería para dibujar el gráfico -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="supabase-script.js"></script>
+    <script type="module" src="auth.js"></script>
+    <script type="module" src="dashboard.js"></script>
+</body></html>

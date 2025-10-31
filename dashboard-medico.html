@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22%232563eb%22><path d=%22M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z%22/></svg>">
+    <title>Panel del Médico - Salud Quibdó</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content" style="justify-content: space-between;">
+                <a href="index.html" style="text-decoration: none; color: inherit;">
+                    <div class="logo">
+                        <div class="logo-icon">
+                            <svg class="heart-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/>
+                            </svg>
+                        </div>
+                        <h1>Panel del Médico</h1>
+                    </div>
+                </a>
+                <a href="index.html" class="btn-ghost">Volver al inicio</a>
+            </div>
+        </div>
+    </header>
+
+    <main style="background-color: var(--gray-50); padding: var(--space-12) 0; min-height: 80vh;">
+        <div class="container">
+            <!-- Perfil del Doctor -->
+            <div class="patient-profile-header"> <!-- Re-using patient style for consistency -->
+                <div class="profile-avatar-container"> 
+                    <img src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e5e7eb'%3e%3cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'/%3e%3ccircle cx='12' cy='7' r='4'/%3e%3c/svg%3e" alt="Foto de perfil" id="doctor-avatar" class="profile-avatar">
+                    <label for="avatar-upload" class="edit-avatar-button" title="Cambiar foto de perfil">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                    </label>
+                    <input type="file" id="avatar-upload" accept="image/png, image/jpeg" style="display: none;">
+                </div>
+                <div class="doctor-info">
+                    <h2 id="doctor-name">Cargando...</h2>
+                    <p id="doctor-specialty" class="text-muted">Cargando especialidad...</p>
+                </div>
+                <div class="doctor-stats">
+                    <div class="stat-item">
+                        <span id="pending-count" class="stat-value">0</span>
+                        <span class="stat-label">Pendientes</span>
+                    </div>
+                    <div class="stat-item">
+                        <span id="accepted-count" class="stat-value">0</span>
+                        <span class="stat-label">Programadas</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gestión de Disponibilidad -->
+            <div id="availability-section" style="margin-top: var(--space-12);">
+                <div class="section-header" style="text-align: left; margin-bottom: var(--space-8);">
+                    <h2>Mi Disponibilidad Semanal</h2>
+                    <p style="font-size: var(--font-size-lg); text-align: left; max-width: none;">Define tus horarios de atención para que los pacientes puedan agendar citas en los momentos que estás disponible.</p>
+                </div>
+                <div id="availability-form-container" class="metric-form-container" style="max-width: 800px; margin: 0;">
+                    <p>Cargando configuración de disponibilidad...</p>
+                </div>
+            </div>
+
+            <!-- Consultas Pendientes -->
+            <div class="section-header" style="margin-bottom: var(--space-8); text-align: left;">
+                <h2>Consultas Pendientes por Aceptar</h2>
+                <p style="font-size: var(--font-size-lg); text-align: left; max-width: none;">Nuevas solicitudes de pacientes esperando asignación.</p>
+            </div>
+            <div id="pendientes-container" class="dashboard-grid">
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+            </div>
+
+            <!-- Mis Consultas Aceptadas -->
+            <div class="section-header" style="margin-top: var(--space-16); margin-bottom: var(--space-8); text-align: left;">
+                <h2>Mis Consultas Programadas</h2>
+                <p style="font-size: var(--font-size-lg); text-align: left; max-width: none;">Consultas que has aceptado y están pendientes de realizar.</p>
+            </div>
+            <div id="aceptadas-container" class="dashboard-grid">
+                <div class="skeleton-card"></div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="supabase-script.js"></script>
+    <script type="module" src="auth.js"></script>
+    <script type="module" src="dashboard.js"></script>
+</body></html>
