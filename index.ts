@@ -25,7 +25,7 @@ serve(async (req: Request) => {
     // Cuando se usa `invoke`, el cuerpo viene como un objeto JSON.
     // Lo parseamos para obtener el `body` que enviamos desde el cliente.
     const requestBody = await req.json();
-    const { message, user_id } = JSON.parse(requestBody.body);
+    const { message, user_id } = requestBody;
     let response = "";
 
     if (groq) {

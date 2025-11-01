@@ -472,7 +472,7 @@ function initializeChatbot() {
   
           // ¡AQUÍ ESTÁ LA LLAMADA IMPORTANTE!
           // Llamada a la nueva función unificada 'api' y su ruta '/chatbot'
-          const { data, error } = await window.supabaseClient.functions.invoke('api/chatbot', { 
+          const { data, error } = await window.supabaseClient.functions.invoke('api', { 
               method: 'POST', // Es importante especificar el método
               body: JSON.stringify({ message: userMessage, user_id: userId }) 
           });
