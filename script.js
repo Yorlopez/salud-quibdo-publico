@@ -455,47 +455,35 @@ function initializeChatbot() {
     
     // Refactorización de generateBotResponse con timeout y mensaje de espera
     async function generateBotResponse(userMessage) {
-        if (!window.supabaseClient) {
-            console.error("Supabase client no está disponible.");
-            return Promise.reject(new Error("Error: No se pudo conectar con el servidor."));
-        }
-    
-        const TIMEOUT_DURATION = 20000; // 20 segundos
-        let waitingMessageTimeout;
-    
-        // Promesa para la llamada a la función de Supabase
-        const fetchResponse = async () => {
-            const { data: { user } } = await window.supabaseClient.auth.getUser();
-            const userId = user ? user.id : 'anonymous';
-    
-            // Mostrar un mensaje de espera si la respuesta tarda más de 4 segundos
-            waitingMessageTimeout = setTimeout(() => {
-                const messagesContainer = document.querySelector('.chatbot-messages');
-                if (messagesContainer.querySelector('.typing-indicator')) {
-                    const waitingMessage = document.createElement('div');
-                    waitingMessage.className = 'chatbot-message bot-message';
-                    waitingMessage.innerHTML = `
-                        <div class="message-content" style="background-color: var(--gray-100);">
-                            Estoy pensando tu respuesta, dame un momento... A veces mi primer café del día tarda en hacer efecto.
-                        </div>`;
-                    messagesContainer.insertBefore(waitingMessage, messagesContainer.querySelector('.typing-indicator'));
-                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
-                }
-            }, 4000);
-    
-            // Llamada a la nueva función unificada 'api' y su ruta '/chatbot'
-            const { data, error } = await window.supabaseClient.functions.invoke('api/chatbot', { 
-                method: 'POST', // Es importante especificar el método
-                body: JSON.stringify({ message: userMessage, user_id: userId }) 
-            });
-    
-            clearTimeout(waitingMessageTimeout); // Cancelar el mensaje de espera si la respuesta llega a tiempo
-    
-            if (error) throw error;
-    
-            return data.response || "No he podido entender tu mensaje. ¿Puedes reformularlo?";
-        };
-    
+      if (!window.supabaseClient) {
+          console.error("Supabase client no está disponible.");
+          return Promise.reject(new Error("Error: No se pudo conectar con el servidor."));
+      }
+  
+      const TIMEOUT_DURATION = 20000; // 20 segundos
+      let waitingMessageTimeout;
+  
+      // Promesa para la llamada a la función de Supabase
+      const fetchResponse = async () => {
+          const { data: { user } } = await window.supabaseClient.auth.getUser();
+          const userId = user ? user.id : 'anonymous';
+  
+          // ... (lógica del mensaje de espera) ...
+  
+          // ¡AQUÍ ESTÁ LA LLAMADA IMPORTANTE!
+          // Llamada a la nueva función unificada 'api' y su ruta '/chatbot'
+          const { data, error } = await window.supabaseClient.functions.invoke('api/chatbot', { 
+              method: 'POST', // Es importante especificar el método
+              body: JSON.stringify({ message: userMessage, user_id: userId }) 
+          });
+  
+          clearTimeout(waitingMessageTimeout); // Cancelar el mensaje de espera si la respuesta llega a tiempo
+  
+          if (error) throw error;
+  
+          return data.response || "No he podido entender tu mensaje. ¿Puedes reformularlo?";
+      };
+  
         // Promesa para el timeout
         const timeoutPromise = new Promise((_, reject) => {
             setTimeout(() => {

@@ -89,6 +89,7 @@ async function loadPendingVolunteers() {
         const { data: { session } } = await window.supabaseClient.auth.getSession();
         const accessToken = session?.access_token;
 
+        // ESTA LÍNEA ESTÁ INCORRECTA Y APUNTA A LA FUNCIÓN ANTIGUA
         const response = await fetch(`${window.SUPABASE_URL}/functions/v1/make-server-5c249a46/volunteers/pending`, {
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
