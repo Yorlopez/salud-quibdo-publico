@@ -5,9 +5,11 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { Textarea } from "./ui/textarea";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
+import { Card, CardContent } from "./ui/card";
 import { Calendar, Clock, Stethoscope } from "lucide-react";
-import { isSupabaseConfigured } from "../utils/supabase/client";
+import { isSupabaseConfigured, supabase } from "../utils/supabase/client";
+import { projectId, publicAnonKey } from "../utils/supabase/info";
+import type { User } from "../types";
 
 interface Doctor {
   id: string;
@@ -19,10 +21,10 @@ interface Doctor {
 interface AppointmentModalProps {
   isOpen: boolean;
   onClose: () => void;
-  user: any;
+  user: User;
 }
 
-export function AppointmentModal({ isOpen, onClose, user }: AppointmentModalProps) {
+export function AppointmentModal({ isOpen, onClose, user: _user }: AppointmentModalProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [doctors, setDoctors] = useState<Doctor[]>([]);
   const [error, setError] = useState("");
@@ -59,12 +61,14 @@ export function AppointmentModal({ isOpen, onClose, user }: AppointmentModalProp
 
   const fetchDoctors = async () => {
     try {
-      const { url, anonKey } = window.SUPABASE_INFO;
+      if (!isSupabaseConfigured || !supabase) return;
+      
+      const url = `https://${projectId}.supabase.co`;
       // CORREGIDO: Apunta a la nueva función 'api' (asumiendo que tienes una ruta '/doctors/available')
       const response = await fetch(`${url}/functions/v1/api/doctors/available`, {
         headers: {
-          "apikey": anonKey,
-          "Authorization": `Bearer ${anonKey}`
+          "apikey": publicAnonKey,
+          "Authorization": `Bearer ${publicAnonKey}`
         },
       });
       
@@ -100,14 +104,18 @@ export function AppointmentModal({ isOpen, onClose, user }: AppointmentModalProp
     const combinedDateTime = `${appointment_date}T${appointment_time}:00.000Z`;
 
     try {
-      const { url, anonKey } = window.SUPABASE_INFO;
+      if (!supabase) return;
+      
+      const url = `https://${projectId}.supabase.co`;
+      const { data: { session } } = await supabase.auth.getSession();
+      
       // CORREGIDO: Apunta a la nueva función 'api' (asumiendo que tienes una ruta '/appointments/create')
       const response = await fetch(`${url}/functions/v1/api/appointments/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "apikey": anonKey,
-          "Authorization": `Bearer ${user.access_token}` // Aquí sí se usa el token del usuario
+          "apikey": publicAnonKey,
+          "Authorization": `Bearer ${session?.access_token || publicAnonKey}` // Usa el token del usuario si está disponible
         },
         body: JSON.stringify({
           doctor_id,
@@ -129,9 +137,10 @@ export function AppointmentModal({ isOpen, onClose, user }: AppointmentModalProp
         setSuccess("");
       }, 2000);
 
-    } catch (error: any) {
+    } catch (error) {
       console.log("Appointment creation error:", error);
-      setError(error.message || "Error al agendar la cita");
+      const errorMessage = error instanceof Error ? error.message : "Error al agendar la cita";
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }

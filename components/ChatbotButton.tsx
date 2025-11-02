@@ -2,13 +2,21 @@ import { useState } from "react";
 import { MessageCircle, X, Send } from "lucide-react";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { isSupabaseConfigured } from "../utils/supabase/client";
+import { isSupabaseConfigured, supabase } from "../utils/supabase/client";
+import { projectId, publicAnonKey } from "../utils/supabase/info";
+import type { User } from "../types";
 
-export function ChatbotButton({ user }: { user?: any }) {
+type Message = {
+  type: "bot" | "user";
+  content: string;
+  time: string;
+};
+
+export function ChatbotButton({ user }: { user?: User }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([
+  const [messages, setMessages] = useState<Message[]>([
     {
-      type: "bot" as const,
+      type: "bot",
       content: "¡Hola! Soy tu asistente de salud de Salud Quibdó. ¿En qué puedo ayudarte hoy?",
       time: "ahora"
     }
@@ -20,8 +28,8 @@ export function ChatbotButton({ user }: { user?: any }) {
     if (!inputValue.trim() || isLoading) return;
 
     // Add user message
-    const userMessage = {
-      type: "user" as const,
+    const userMessage: Message = {
+      type: "user",
       content: inputValue,
       time: "ahora"
     };
@@ -34,17 +42,17 @@ export function ChatbotButton({ user }: { user?: any }) {
     try {
       let botResponse = "";
 
-      if (isSupabaseConfigured) {
+      if (isSupabaseConfigured && supabase) {
         // Call our enhanced chatbot API
-        const { url, anonKey } = window.SUPABASE_INFO;
+        const url = `https://${projectId}.supabase.co`;
         
         // CORREGIDO: Apunta a la nueva función 'api' y la ruta '/chatbot'
         const response = await fetch(`${url}/functions/v1/api/chatbot`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "apikey": anonKey, // La anon key es necesaria para llamadas no autenticadas
-            "Authorization": `Bearer ${anonKey}`
+            "apikey": publicAnonKey, // La anon key es necesaria para llamadas no autenticadas
+            "Authorization": `Bearer ${publicAnonKey}`
           },
           body: JSON.stringify({
             message: currentMessage,
@@ -69,8 +77,8 @@ export function ChatbotButton({ user }: { user?: any }) {
         }
       }
       
-      const botMessage = {
-        type: "bot" as const,
+      const botMessage: Message = {
+        type: "bot",
         content: botResponse,
         time: "ahora"
       };
@@ -79,8 +87,8 @@ export function ChatbotButton({ user }: { user?: any }) {
 
     } catch (error) {
       console.log("Chatbot error:", error);
-      const errorMessage = {
-        type: "bot" as const,
+      const errorMessage: Message = {
+        type: "bot",
         content: "Disculpa, tengo problemas técnicos. Para una consulta inmediata, te recomiendo agendar una cita con nuestros médicos.",
         time: "ahora"
       };

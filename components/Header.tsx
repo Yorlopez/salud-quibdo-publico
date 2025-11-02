@@ -1,8 +1,9 @@
 import { Button } from "./ui/button";
 import { Heart, Globe, Menu, User } from "lucide-react";
+import type { User as UserType } from "../types";
 
 export function Header({ user, onSignIn, onSignOut, onOpenAppointment }: { 
-  user?: any; 
+  user?: UserType; 
   onSignIn: () => void; 
   onSignOut: () => void;
   onOpenAppointment: () => void;

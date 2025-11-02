@@ -9,9 +9,10 @@ import { ChatbotButton } from "./components/ChatbotButton";
 import { AuthModal } from "./components/AuthModal";
 import { AppointmentModal } from "./components/AppointmentModal";
 import { supabase, isSupabaseConfigured } from "./utils/supabase/client";
+import type { User } from "./types";
 
 export default function App() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User>(null);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showAppointmentModal, setShowAppointmentModal] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -89,7 +90,7 @@ export default function App() {
     setUser(null);
   };
 
-  const handleAuthSuccess = (userData) => {
+  const handleAuthSuccess = (userData: User) => {
     setUser(userData);
     setShowAuthModal(false);
   };

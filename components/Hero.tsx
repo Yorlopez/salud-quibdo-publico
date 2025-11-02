@@ -1,8 +1,9 @@
 import { Button } from "./ui/button";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import type { User } from "../types";
 
 export function Hero({ user, onSignIn, onOpenAppointment }: { 
-  user?: any; 
+  user?: User; 
   onSignIn: () => void;
   onOpenAppointment: () => void;
 }) {

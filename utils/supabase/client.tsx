@@ -2,7 +2,12 @@ import { createClient } from "@supabase/supabase-js";
 import { projectId, publicAnonKey } from "./info";
 
 // Check if Supabase is properly configured
-export const isSupabaseConfigured = projectId !== "your-project-id" && publicAnonKey !== "your-anon-key";
+export const isSupabaseConfigured = Boolean(
+  projectId && 
+  projectId !== "your-project-id" && 
+  publicAnonKey && 
+  publicAnonKey !== "your-anon-key"
+);
 
 // Create singleton Supabase client instance
 let supabaseInstance: ReturnType<typeof createClient> | null = null;

@@ -26,7 +26,7 @@ app.post('/chatbot', async (c) => {
   try {
     // 1. Leer cuerpo
     const body = await c.req.json()
-    const { message, user_id } = body
+    const { message } = body
 
     if (!message || typeof message !== 'string') {
       return c.json({ error: 'Falta "message" o no es texto válido' }, 400)

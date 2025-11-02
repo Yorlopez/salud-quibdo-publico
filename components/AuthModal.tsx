@@ -8,11 +8,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { supabase, isSupabaseConfigured } from "../utils/supabase/client";
 import { projectId, publicAnonKey } from "../utils/supabase/info";
+import type { User } from "../types";
 
 interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onAuthSuccess: (user: any) => void;
+  onAuthSuccess: (user: User) => void;
 }
 
 export function AuthModal({ isOpen, onClose, onAuthSuccess }: AuthModalProps) {
@@ -44,9 +45,10 @@ export function AuthModal({ isOpen, onClose, onAuthSuccess }: AuthModalProps) {
 
       onAuthSuccess(data.user);
       onClose();
-    } catch (error: any) {
+    } catch (error) {
       console.log("Sign in error:", error);
-      setError(error.message || "Error al iniciar sesión");
+      const errorMessage = error instanceof Error ? error.message : "Error al iniciar sesión";
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -105,9 +107,10 @@ export function AuthModal({ isOpen, onClose, onAuthSuccess }: AuthModalProps) {
 
       onAuthSuccess(data.user);
       onClose();
-    } catch (error: any) {
+    } catch (error) {
       console.log("Sign up error:", error);
-      setError(error.message || "Error al registrarse");
+      const errorMessage = error instanceof Error ? error.message : "Error al registrarse";
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }

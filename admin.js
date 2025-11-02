@@ -165,7 +165,7 @@ async function loadPendingVolunteers() {
                 await rejectVolunteer(volunteerId, e.target);
             }
         });
-    }
+    });
 }
 
 async function approveVolunteer(volunteerId, buttonElement) {
