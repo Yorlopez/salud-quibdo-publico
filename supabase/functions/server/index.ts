@@ -9,12 +9,13 @@ const app = new Hono()
 
 // === CONFIGURACIÓN CORS (SEGURO Y FUNCIONAL) ===
 app.use('*', cors({
-  origin: [
-    'https://6906b04d910cce0008d0dfe7--salubquibdo30.netlify.app',
-    'http://localhost:3000',
-    'http://localhost:5173',
-    'http://127.0.0.1:3000',
-  ],
+  origin: (origin) => {
+    // Permitir todas las URLs de Netlify y cualquier localhost
+    if (origin.endsWith('.netlify.app') || origin.startsWith('http://localhost:') || origin.startsWith('http://127.0.0.1:')) {
+      return origin;
+    }
+    return 'https://salubquibdo30.netlify.app'; // URL de producción principal
+  },
   allowMethods: ['GET', 'POST', 'OPTIONS'],
   allowHeaders: ['Content-Type', 'Authorization', 'apikey', 'x-client-info'],
   maxAge: 86400,

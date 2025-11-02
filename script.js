@@ -184,8 +184,10 @@ function initializeChatbot() {
                 })
                 .catch(error => {
                     toggleTypingIndicator(false);
-                    addMessage("Lo siento, estoy teniendo problemas. Intenta de nuevo.", 'bot');
-                    console.error("Error:", error);
+                    // Mensaje de error más detallado para depuración
+                    const errorMessage = `Lo siento, hubo un problema. Error: ${error.message || 'Desconocido'}`;
+                    addMessage(errorMessage, 'bot');
+                    console.error("Error al llamar a la función del chatbot:", error);
                 });
         }
 
@@ -239,7 +241,12 @@ function initializeChatbot() {
             body: { message: userMessage, user_id: userId }
         });
 
-        if (error) throw error;
+        if (error) {
+            // Si el error es de CORS, el mensaje puede ser críptico.
+            // Envolvemos el error en un mensaje más claro.
+            console.error('Supabase function invocation error:', error);
+            throw new Error(error.message.includes('Failed to fetch') ? 'Problema de conexión o CORS.' : error.message);
+        }
         return data.response || "No pude entender tu mensaje. ¿Puedes reformularlo?";
     }
 }
