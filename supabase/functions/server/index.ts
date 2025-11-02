@@ -1,7 +1,5 @@
 // supabase/functions/server/index.ts
 // Refactorizado para usar Hono: más limpio y sin logs extraños.
-
-import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
 import { Hono } from 'npm:hono'
 import { cors } from 'npm:hono/cors'
 
@@ -90,4 +88,4 @@ app.onError((err, c) => {
 
 // El handler que Supabase necesita.
 // Hono se encarga de la lógica del servidor.
-serve(app.fetch)
+Deno.serve(app.fetch)
