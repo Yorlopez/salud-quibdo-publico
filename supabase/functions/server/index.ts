@@ -1,9 +1,8 @@
 // supabase/functions/server/index.ts
-// SERVIDOR UNIFICADO CON HONO + GROK + KV
+// SERVIDOR UNIFICADO CON HONO + GROK
 
-import { Hono } from 'https://deno.land/x/hono@v3.11.7/mod.ts'
-import { cors } from 'https://deno.land/x/hono@v3.11.7/middleware.ts'
-import { set, get } from './kv_store.tsx'
+import { Hono } from 'npm:hono'
+import { cors } from 'npm:hono/cors'
 
 const app = new Hono()
 
@@ -74,12 +73,6 @@ app.post('/chatbot', async (c) => {
 
     if (!reply) {
       return c.json({ error: 'Respuesta vacía del asistente' }, 500)
-    }
-
-    // 5. (Opcional) Guardar en KV para historial
-    if (user_id) {
-      const key = `chat:${user_id}:${Date.now()}`
-      await set(key, { message, reply, timestamp: new Date().toISOString() })
     }
 
     // 6. Respuesta exitosa
