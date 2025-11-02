@@ -90,7 +90,7 @@ async function loadPendingVolunteers() {
         const accessToken = session?.access_token;
 
         // ESTA LÍNEA ESTÁ INCORRECTA Y APUNTA A LA FUNCIÓN ANTIGUA
-        const response = await fetch(`${window.SUPABASE_URL}/functions/v1/make-server-5c249a46/volunteers/pending`, {
+        const response = await fetch(`${window.SUPABASE_URL}/functions/v1/server/volunteers/pending`, {
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
                 'Content-Type': 'application/json'
